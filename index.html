@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Document</title>
+</head>
+<body>
+      <input type="button" id="add" value="添加">
+      <input type="button" id="del" value="删除">
+      <input type="button" id="query" value="查询">
+      <input type="button" id="update" value="修改">
+   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <script>
+   
+      query.onclick = function () {
+
+         let str = `select * from student`;
+
+         axios.post("/administrator", {
+            type: 'query',
+            query: str
+         })
+         .then( (res) => {
+            console.log(res)
+         })
+         .catch( (err) => {
+            console.log(err)
+         })
+
+      }
+
+      add.onclick = function () {
+
+         let str = `insert into administrator(adID, adName, adSex, building)
+                     values('123456824378989421', '阿斯玛', '男', 4)  `
+
+         axios.post('/administrator', {
+            type: 'insert',
+            query: str
+         })
+         .then( (res) => {
+            console.log(res)
+         })
+         .catch( (err) => {
+            console.log(err)
+         })
+
+      }
+
+      del.onclick = function () {
+         
+         let str = `delete from student where no = 2016218812`
+
+         axios.post('/administrator', {
+            type: 'delete',
+            query: str
+         })
+         .then( (res) => {
+            console.log(res)
+         })
+         .catch( (err) => {
+            console.log(err)
+         })
+
+      }
+
+      update.onclick = function () {
+
+         let str = `update administrator set .`
+
+         axios.post('/administrator', {
+            type: 'delete',
+            query: str
+         })
+         .then( (res) => {
+            console.log(res)
+         })
+         .catch( (err) => {
+            console.log(err)
+         })
+
+
+      }
+
+/*
+      insert into administrator(adID, adName, adSex, building)
+      values('123456789988424321', '齐木卡卡西', '男', 1)   
+
+      //  insert into student(student.`no`,student.`name`, student.sex, student.age, student.depar_no, student.id_no)
+      //  values(2016217701, '曹操', '男', 21, 1111, '341124199612185211'),
+
+
+
+*/
+   </script>
+</body>
+</html>
