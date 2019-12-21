@@ -45,7 +45,7 @@ export default {
     margin: 0 auto;
     text-align: center;
     max-width: 1020px;
-    min-width: 720px;
+    min-width: 900px;
   }
 
   #content {

@@ -1,15 +1,6 @@
 <template>
-  <div class="visitors">
-    <div class="visitors_search">
-      <!-- 姓名：
-      <input v-model="visitorName" type="text" />
-      身份证号：
-      <input v-model="visitorID" type="text" />
-      <br />日期：
-      <input v-model="visitorDate" type="date" />
-      楼号：
-      <input v-model="visitorBuilding" type="text" />-->
-      <!-- <input type="submit" value="查询" @click="submit" /> -->
+  <div class="visitors module-container">
+    <div class="visitors_search form-container">
       <Form ref="formVisitor" :model="searchInfo" :rules="ruleCustom" :label-width="80">
         <FormItem label="姓名" prop="visitorName">
           <Input type="text" v-model="searchInfo.visitorName" />
@@ -29,6 +20,9 @@
       </Form>
     </div>
     <div class="search-res">
+      <div class="btn-part">
+        <Button type="primary" :disabled="disable">删除</Button>
+      </div>
       <Table
         :columns="col"
         :data="dataList"
@@ -42,6 +36,7 @@
 
 <script>
 import axios from "axios";
+import { fetchData } from "../../utils/fetch";
 export default {
   name: "visitors",
   data() {
@@ -97,6 +92,11 @@ export default {
       //发送请求，保存数据
     }
   },
+  computed: {
+    disable() {
+      return true;
+    }
+  },
   methods: {
     select(selection, row) {
       console.log(selection, row);
@@ -146,24 +146,5 @@ export default {
 
 
 <style lang="less" rel="stylesheet/less">
-.visitors {
-  width: 100%;
-  margin-top: 30px;
-  display: flex;
-  box-sizing: border-box;
-  .visitors_search {
-    flex: 0 0 240px;
-    padding: 20px 20px 20px 0;
-    line-height: 35px;
-    text-align: left;
-    background: rgba(0, 0, 0, 0.2);
-    .ivu-form-item-label {
-      text-align: center;
-    }
-  }
-  .search-res {
-    flex: auto;
-    margin-left: 24px;
-  }
-}
+
 </style>
