@@ -17,11 +17,9 @@ module.exports = (req, res) => {
          query(body.query, resolve);
       })
       .then( (data) => {
-   
          res.writeHead(200);
          res.write(JSON.stringify(data));
          res.end()
-            
       })
    
    } else if (type === 'insert') {             //添加数据
