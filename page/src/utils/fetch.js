@@ -1,16 +1,19 @@
-export const fetchData = async function ({url, method, data, params}) {
+import axios from 'axios';
+
+export const fetchData = async function ({url, method, postData, params}) {
    let response = {};
    try {
      response = await axios({
        url: url,
-       methods: method,
-       data: data,
+       method: method,
+       data: postData,
        params: params
      })
+   } catch (e) {
+    console.log(e)
    } finally {
-     const { data={} } = response;
-     const { data: resData } = data;
+     const { data=[] } = response;
 
-     return resData;
+     return data;
    }
 }

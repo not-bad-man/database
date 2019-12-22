@@ -1,21 +1,21 @@
 <template>
   <div class="student_result module-container">
     <div class="student_search form-container">
-      <Form ref="studentForm" :model="stuInfo" :rules="ruleCustom" :label-width="80">
+      <Form ref="studentForm" :model="studentInfo" :rules="ruleCustom" :label-width="80">
         <FormItem label="学号" prop="stuNumber">
-          <Input placeholder="2016217712" autocomplete type="text" v-model="stuInfo.stuNumber" />
+          <Input placeholder="2016217712" autocomplete type="text" v-model="studentInfo.stuNumber" />
         </FormItem>
         <FormItem label="姓名" prop="stuName">
-          <Input type="text" v-model="stuInfo.stuName" />
+          <Input type="text" v-model="studentInfo.stuName" />
         </FormItem>
         <FormItem label="性别" prop="stuSex">
-          <Input type="text" v-model="stuInfo.stuSex" />
+          <Input type="text" v-model="studentInfo.stuSex" />
         </FormItem>
         <FormItem label="年龄" prop="stuAge">
-          <Input type="text" v-model="stuInfo.stuAge" />
+          <Input type="text" v-model="studentInfo.stuAge" />
         </FormItem>
         <FormItem label="身份证号" prop="stuID">
-          <Input type="text" v-model="stuInfo.stuID" />
+          <Input type="text" v-model="studentInfo.stuID" />
         </FormItem>
         <FormItem>
           <Button type="primary" @click="handleSubmit('studentForm')">search</Button>
@@ -35,13 +35,16 @@
 <script>
 import axios from "axios";
 import { fetchData } from '../../utils/fetch'
+import { operationType } from '../../utils/enum'
+import qs from 'qs'
 
 export default {
   name: "student",
   data() {
     return {
       ruleCustom: {},
-      stuInfo: {
+      type: operationType.query, 
+      studentInfo: {
         stuNumber: "",
         stuName: "",
         stuSex: "",
@@ -116,28 +119,43 @@ export default {
     }
   },
   async created() {
-    if (this.bus.student) {
-      this.list = this.bus.student;
-      // alert('exist')
-      // 使用上次请求的数据
-    } else {
-      // 请求数据
-      this.dataList = await this.fetchData();
-    }
+    const data = await this.fetchData();
+    console.log(data)
+    // this.dataList = data;
   },
   
   methods: {
-    async fetchData (params) {
-      return fetchData({
-        url: 'https://cloudapi.bytedance.net/faas/services/tt3qixphdeepnivehp/invoke/studentDatabase',
-        method: 'GET',
-        params
-      })
+    async fetchData (data) {
+      const message = JSON.stringify({
+            studentInfo: data,
+            operationType: type
+          });
+
+      const params = new URLSearchParams();
+      params.append('studentInfo', data);
+      params.append('operationType', type);
+      
+      const type = this.type;
+      if (data) {
+        return await fetchData({
+          url: 'http://localhost:12345/student',
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          params: params
+        })
+      } else {
+        return await fetchData({
+          url: 'http://localhost:12345/student',
+          method: 'get'
+        })
+      }
     },
     async handleSubmit(target) {
       const form = this.$refs[target];
       let formData = {};
-
+      this.type = operationType.query;
       if (!form) {
         this.$Message.error('发生错误，找不到表单')
       }
@@ -145,7 +163,7 @@ export default {
       form.validate(async (valid) => {
         formData = form.model;
         const data = await this.fetchData({...formData})
-        console.log({...formData}, data)
+        
         this.dataList = data;
         this.$Message.info('开始查找')
       })
