@@ -43,7 +43,7 @@ export default {
    name: 'Name', 
    data () {
       return {
-
+         
       }
    }
 }
@@ -89,23 +89,42 @@ export default {
    margin-top: 30px;
    display: flex;
    box-sizing: border-box;
-   .form-container {
-      flex: 0 0 240px;
-      padding: 20px 20px 20px 0;
-      line-height: 35px;
-      text-align: left;
-      border-radius: 8px;
-      border: 2px dashed rgba(0,0,0,.2);
-      .ivu-form-item-label {
-         text-align: center;
-      }
-   }
+   // .form-container {
+   //    flex: 0 0 240px;
+   //    line-height: 35px;
+   //    text-align: left;
+   //    border-radius: 8px;
+   //    .ivu-form-item-label {
+   //       text-align: center;
+   //    }
+   //    .btn-part {
+   //       display: flex;
+   //       justify-content: space-around;
+   //    }
+   // }
    .search-res {
+      width: 948px;
       flex: 1 1 auto;
-      margin-left: 24px;
       .btn-part {
          padding-bottom: 16px;
          text-align: right;
+         .ivu-btn-primary {
+            margin-left: 8px;
+            padding: 0 36px;
+         }
+      }
+      .search-table {
+         width: 100%;
+         .ivu-table {
+            width: 100%;
+         }
+      }
+      .ivu-table-body {
+         max-height: 500px;
+         overflow-y: auto;
+         &::-webkit-scrollbar { width: 0 !important }
+         -ms-overflow-style: none;
+         overflow: -moz-scrollbars-none;
       }
    }
 }

@@ -1,13 +1,12 @@
 const connect = require('../../dao/utils');
 
-module.exports = (query, callback) => {
+module.exports = (query, callback) => { // callback => resolve
    connect(query, (err, data) => {
-      if (err) {
-         console.log(__dirname, 33333333);
-         throw new Error(err);
-      }
+      let res = [];
+      if (!err) {
+         res = data;
+      } 
 
-      console.log(data)
-      callback(data)                       //返回正确的查询结果
+      if (callback && typeof callback === 'function') callback(res);
    });
 }

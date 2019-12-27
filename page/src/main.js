@@ -5,21 +5,29 @@ import App from './App'
 import router from './router'
 import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
-import Less from 'less'
 
 Vue.config.productionTip = false
 Vue.use(ViewUI)
 
 Vue.prototype.bus = {
-  student: undefined, 
-  department: undefined,
-  fix: undefined,
-  administrator: undefined,
-  visitors: undefined
+  pageType: 'student',
+  changePage (pageType) {
+    this.pageType = pageType;
+  },
+  getPageType() {
+    return this.pageType;
+  },
+  dataList: {
+    student: undefined, 
+    department: undefined,
+    fix: undefined,
+    administrator: undefined,
+    visitors: undefined
+  }
 };
 
 /* eslint-disable no-new */
-new Vue({
+const vue = new Vue({
   el: '#app',
   router,
   components: { App },

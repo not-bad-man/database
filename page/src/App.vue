@@ -2,9 +2,8 @@
   <div id="app">
     <Name></Name>
     <div id="content">
-      <router-view></router-view>
+      <router-view :pageType="pageType"></router-view>
     </div>
-    
   </div>
 </template>
 
@@ -14,10 +13,16 @@ import Name from './components/Name';
 
 export default {
   name: 'App',
+  created () {
+
+  },
   data () {
     return {
-
+      pageType: 'student'
     }
+  },
+  methods: {
+    
   },
   components: {
     Name

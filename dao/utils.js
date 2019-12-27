@@ -15,11 +15,10 @@ const connect  = (querystr, callback) => {                //callback
       if (err) {
          throw new Error(err);
       }
-      console.log(__dirname, querystr)
+      // console.log(__dirname, querystr)
       connection.query(querystr,callback);              //callback(err,)
 
       connection.release();
-
    })
 }
 
